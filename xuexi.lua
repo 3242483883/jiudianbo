@@ -1,47 +1,29 @@
--- 扩展包基础信息
-local extension = Package:new("jiudianbo")
-extension.extensionName = "神话再临·神刘备"
-extension.assetsPath = "assets" -- 资源路径基准
+-- 创建扩展包
+当地的extension=Package:new("雪西")
+extension.extensionName="九点波" -- 扩展显示名称（如“酒店博”）
 
--- 武将类定义
-local General = class("General")
+-- 全局翻译表（修正命名逻辑）
+FK:loadTranslationTable({
+    ["雪西"] ="重置",   -- 扩展唯一标识翻译
+    ["上帝"] ="神",      -- 阵营前缀翻译（如“神阵营”）
+})
 
-function General:initialize(package, id, kingdom, hp, skillNames)
-    self.package = package
-    self.id = id
-    self.kingdom = kingdom
-    self.hp = hp
-    self.skills = self:loadSkills(skillNames) -- 加载技能
-    self:loadTranslations() -- 加载翻译
-end
+-- 创建角色（修正变量名与实际内容一致）
+当地的刘备=一般：新(扩展，"shen___liubeei1", "上帝", 5) -- “神·刘备1”
 
--- 加载技能：根据技能名列表动态加载对应的 Lua 文件
-function General:loadSkills(skillNames)
-    local skills = {}
-    for _, skillName in ipairs(skillNames) do
-        -- 技能文件路径：assets/skills/{技能名}.lua
-        local skillPath = string.format("%s/skills/%s.lua", self.package.assetsPath, skillName)
-        local skill = require(skillPath) -- 导入技能文件
-        if skill then table.insert(skills, skill) end
-    end
-    return skills
-end
+-- 角色初始化方法
+功能常规：初始化(包、名称、王国、HP、maxhp、性别)
+    -- 角色专属翻译表（统一前缀逻辑）
+FK:loadTranslationTable{
+        ["shen___liubeei1"] ="刘备",          -- 角色名（结合“神”阵营）
+        ["#shen__liubeei1"] ="汉昭烈帝",     -- 称号
+        ["设计单位：沈__liubeei1"] ="博",   -- 设计者（明确关联角色标识）
+        ["简历：沈__liubeei1"] ="官方",    -- 配音演员
+        ["插画师：沈__六背1"] ="官方",  -- 画师
+    }
+    
+    -- 添加函数结束标记
+结束--这里补充端
+    
 
--- 加载翻译表（示例）
-function General:loadTranslations()
-    Fk:loadTranslationTable({
-        [self.id] = "神刘备",
-        ["skill:" .. self.id] = table.concat(self.skills, ", "),
-    })
-end
-
--- 创建神刘备实例，指定技能名列表（需与技能文件名一致）
-local shenLiubei = General:new(
-    extension,
-    "shen_liubei",
-    "god",
-    5,
-    {"wushuang", "huangtian"} -- 技能名对应 assets/skills/ 下的文件名
-)
-
-return extension
+返回拓展
